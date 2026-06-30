@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Formulario de Citas{% endblock %}
+
+{% block content %}
+<div class="card p-4">
+    <h2 class="mb-4">{{ "Editar Cita" if cita else "Nueva Cita" }}</h2>
+
+    <form method="POST">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Paciente</label>
+                <select name="paciente" class="form-select">
+                    {% for paciente in pacientes %}
+                    <option value="{{ paciente.id }}"
+                        {% if cita and cita.paciente == paciente.id %}selected{% endif %}>
+                        {{ paciente.nombre_completo }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Médico</label>
+                <select name="medico" class="form-select">
+                    {% for medico in medicos %}
+                    <option value="{{ medico.id }}"
+                        {% if cita and cita.medico == medico.id %}selected{% endif %}>
+                        {{ medico.nombre_completo }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Fecha</label>
+                <input type="date" name="fecha_cita" class="form-control" value="{{ cita.fecha_cita if cita else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Hora de Inicio</label>
+                <input type="time" name="hora_inicio" class="form-control" value="{{ cita.hora_inicio if cita else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Motivo de la Consulta</label>
+                <textarea name="motivo_consulta" class="form-control">{{ cita.motivo_consulta if cita else '' }}</textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Presión Arterial</label>
+                <input type="text" name="presion_arterial" class="form-control" value="{{ cita.presion_arterial if cita else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Peso</label>
+                <input type="number" step="0.1" name="peso_kg" class="form-control" value="{{ cita.peso_kg if cita else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Temperatura</label>
+                <input type="number" step="0.1" name="temperatura" class="form-control" value="{{ cita.temperatura if cita else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Estado de la Cita</label>
+                <select name="estado_cita" class="form-select">
+                    <option value="Programada" {% if cita and cita.estado_cita == 'Programada' %}selected{% endif %}>Programada</option>
+
+                    <option value="Cancelada"{% if cita and cita.estado_cita == 'Cancelada' %}selected{% endif %}>Cancelada</option>
+
+                    <option value="Asistida" {% if cita and cita.estado_cita == 'Asistida' %}selected{% endif %}>Asistida</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+
+            <a href="{{ url_for('lista_citas') }}" class="btn btn-secondary">Cancelar</a>
+
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

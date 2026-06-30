@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Listado de Pacientes Registrados</h2>
+            <a href="{% url 'registrar_paciente' %}" class="btn btn-success">Registrar Paciente</a>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Documento</th>
+                                <th>Nombre Completo</th>
+                                <th>Teléfono</th>
+                                <th>Tipo Sangre</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for paciente in pacientes %}
+                            <tr>
+                                <td>{{ paciente.id }}</td>
+                                <td>{{ paciente.documento_identidad }}</td>
+                                <td>{{ paciente.nombre_completo }}</td>
+                                <td>{{ paciente.telefono }}</td>
+                                <td>
+                                    <span class="badge bg-primary">{{ paciente.tipo_sangre }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{% url 'editar_paciente' paciente.id %}" class="btn btn-warning btn-sm me-2">
+                                        Editar
+                                    </a>
+                                    <a href="{% url 'eliminar_paciente' paciente.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Parce, seguro que querés eliminar a este paciente?');">
+                                        Eliminar
+                                    </a>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">No hay pacientes registrados aún.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

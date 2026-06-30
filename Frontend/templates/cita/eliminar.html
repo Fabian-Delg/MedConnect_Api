@@ -1,0 +1,23 @@
+
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Citas{% endblock %}
+
+{% block content %}
+<div class="card border-danger p-4 text-center">
+
+    <h3>¿Seguro que deseas eliminar esta cita?</h3>
+
+    <p><strong>Paciente:</strong> {{ cita.paciente_nombre }}</p>
+    <p><strong>Médico:</strong> {{ cita.medico_nombre }}</p>
+    <p><strong>Fecha:</strong> {{ cita.fecha_cita }}</p>
+    <p><strong>Hora:</strong> {{ cita.hora_inicio }}</p>
+
+    <form method="POST">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+
+        <a href="{{ url_for('lista_citas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+</div>
+{% endblock %}

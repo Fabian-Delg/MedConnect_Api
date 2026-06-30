@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="card p-4">
+    <h2 class="mb-4"><i class="bi bi-person-plus"></i> {{ titulo }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Nombre Completo</label>
+                {{ form.nombre_completo }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Número de Licencia</label>
+                {{ form.numero_licencia }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Especialidad</label>
+                {{ form.especialidad }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Teléfono de Contacto</label>
+                {{ form.telefono_contacto }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Correo Institucional</label>
+                {{ form.correo_institucional }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Universidad de Egreso</label>
+                {{ form.universidad_egreso }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Años de Experiencia</label>
+                {{ form.anios_experiencia }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Horario de Turno</label>
+                {{ form.horario_turno }}
+            </div>
+            <div class="col-md-6 mb-3 d-flex align-items-center gap-2">
+                <label class="form-label fw-bold mb-0">Estado Activo</label>
+                {{ form.estado_activo }}
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+            <a href="{% url 'listar_medicos' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

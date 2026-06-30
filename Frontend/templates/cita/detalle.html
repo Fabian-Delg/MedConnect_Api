@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Detalle de la Cita{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Detalle de la Cita</h1>
+
+<div class="card shadow-sm p-4">
+
+    <p><strong>Paciente:</strong> {{ cita.paciente_nombre }}</p>
+    <p><strong>Médico:</strong> {{ cita.medico_nombre }}</p>
+    <p><strong>Fecha:</strong> {{ cita.fecha_cita }}</p>
+    <p><strong>Hora:</strong> {{ cita.hora_inicio }}</p>
+    <p><strong>Motivo:</strong> {{ cita.motivo_consulta }}</p>
+    <p><strong>Presión:</strong> {{ cita.presion_arterial }}</p>
+    <p><strong>Peso:</strong> {{ cita.peso_kg }} kg</p>
+    <p><strong>Temperatura:</strong> {{ cita.temperatura }} °C</p>
+    <p><strong>Estado:</strong> {{ cita.estado_cita }}</p>
+
+</div>
+
+<a class="btn btn-primary mt-3" href="{{ url_for('lista_citas') }}">
+    Volver
+</a>
+
+{% endblock %}

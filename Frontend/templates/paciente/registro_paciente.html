@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header {% if paciente %}bg-warning text-dark{% else %}bg-primary text-white{% endif %}">
+                        <h4 class="mb-0">{% if paciente %}Editar Paciente: {{ paciente.nombre_completo }}{% else %}Registro de Paciente{% endif %}</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="row g-3">
+                            
+                                <div class="col-12">
+                                    <label for="documento" class="form-label">Documento de Identidad</label>
+                                    <input type="text" class="form-control" id="documento" name="documento_identidad" value="{{ paciente.documento_identidad|default:'' }}" placeholder="Número de cédula/pasaporte" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="nombreCompleto" name="nombre_completo" value="{{ paciente.nombre_completo|default:'' }}" placeholder="Nombres y Apellidos" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fechaNacimiento" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|date:'Y-m-d'|default:'' }}" required>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="genero" class="form-label">Género</label>
+                                    <select id="genero" name="genero" class="form-select" required>
+                                        <option value="" {% if not paciente %}selected{% endif %} disabled>Seleccione...</option>
+                                        <option value="Masculino" {% if paciente.genero == "Masculino" %}selected{% endif %}>Masculino</option>
+                                        <option value="Femenino" {% if paciente.genero == "Femenino" %}selected{% endif %}>Femenino</option>
+                                        <option value="Otro" {% if paciente.genero == "Otro" %}selected{% endif %}>Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ paciente.telefono|default:'' }}" placeholder="Ej: +57 300..." required>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="correo" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo" name="correo" value="{{ paciente.correo_electronico|default:'' }}" placeholder="nombre@correo.com" required>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" value="{{ paciente.direccion|default:'' }}" placeholder="Calle, Carrera, Barrio..." required>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="tipoSangre" class="form-label">Tipo de Sangre</label>
+                                    <select id="tipoSangre" name="tipo_sangre" class="form-select" required>
+                                        <option value="" {% if not paciente %}selected{% endif %} disabled>Seleccione...</option>
+                                        <option value="O+" {% if paciente.tipo_sangre == "O+" %}selected{% endif %}>O+</option>
+                                        <option value="O-" {% if paciente.tipo_sangre == "O-" %}selected{% endif %}>O-</option>
+                                        <option value="A+" {% if paciente.tipo_sangre == "A+" %}selected{% endif %}>A+</option>
+                                        <option value="A-" {% if paciente.tipo_sangre == "A-" %}selected{% endif %}>A-</option>
+                                        <option value="B+" {% if paciente.tipo_sangre == "B+" %}selected{% endif %}>B+</option>
+                                        <option value="B-" {% if paciente.tipo_sangre == "B-" %}selected{% endif %}>B-</option>
+                                        <option value="AB+" {% if paciente.tipo_sangre == "AB+" %}selected{% endif %}>AB+</option>
+                                        <option value="AB-" {% if paciente.tipo_sangre == "AB-" %}selected{% endif %}>AB-</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="alergias" class="form-label">Alergias Conocidas</label>
+                                    <textarea class="form-control" id="alergias" name="alergias" rows="3" placeholder="Escriba las alergias del paciente o 'Ninguna' si aplica.">{{ paciente.alergias_conocidas|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12 text-end mt-4">
+                                    <a href="{% url 'lista_pacientes' %}" class="btn btn-secondary me-2">Cancelar</a>
+                                    <button type="submit" class="btn {% if paciente %}btn-warning text-dark{% else %}btn-primary{% endif %} px-4">
+                                        {% if paciente %}Actualizar Paciente{% else %}Registrar Paciente{% endif %}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

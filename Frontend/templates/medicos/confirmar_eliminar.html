@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="card p-4 text-center">
+    <h2 class="mb-3 text-danger"><i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación</h2>
+    <p class="fs-5">¿Estás segura de que deseas eliminar al médico:</p>
+    <p class="fw-bold fs-4 text-primary">{{ medico.nombre_completo }}</p>
+    <p class="text-muted">Especialidad: {{ medico.especialidad }} | Licencia: {{ medico.numero_licencia }}</p>
+    <p class="text-danger">Esta acción no se puede deshacer.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Sí, eliminar
+            </button>
+            <a href="{% url 'listar_medicos' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

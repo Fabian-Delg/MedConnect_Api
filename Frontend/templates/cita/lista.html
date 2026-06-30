@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Citas{% endblock %}
+
+{% block content %}
+
+<h1>Lista de Citas</h1>
+
+<a href="{{ url_for('crear_cita') }}" class="btn btn-success mb-3">Registrar Cita</a>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle text-center">
+        <thead class="table-primary">
+            <tr>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if citas %}
+                {% for cita in citas %}
+                <tr>
+                    <td>{{ cita.paciente_nombre }}</td>
+                    <td>{{ cita.medico_nombre }}</td>
+                    <td>{{ cita.fecha_cita }}</td>
+                    <td>{{ cita.hora_inicio }}</td>
+                    <td>
+                        {% if cita.estado_cita == 'Programada' %}
+                            <span class="badge bg-warning">Programada</span>
+                        {% elif cita.estado_cita == 'Cancelada' %}
+                            <span class="badge bg-danger">Cancelada</span>
+                        {% else %}
+                            <span class="badge bg-success">Asistida</span>
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        <a href="{{ url_for('detalle_cita', id=cita.id) }}" class="btn btn-info">Ver</a>
+
+                        <a href="{{ url_for('editar_cita', id=cita.id) }}" class="btn btn-warning">Editar</a>
+
+                        <a href="{{ url_for('eliminar_cita', id=cita.id) }}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No hay citas registradas.
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
