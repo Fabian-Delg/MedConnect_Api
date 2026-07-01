@@ -16,14 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.receta.views import inicio
-
 
 urlpatterns = [
-    path('', inicio, name='inicio'),
     path('admin/', admin.site.urls),
     path('api/', include('apps.paciente.api_urls')),
     path('api/', include('apps.medico.api_urls')),
     path('api/', include('apps.cita.api_urls')),
+    path('api/', include('apps.receta.api_urls')),
+    path('api/', include('apps.usuario.api_urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
