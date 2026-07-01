@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<div class="card border-danger p-4 text-center">
+
+<h3>¿Seguro que deseas eliminar esta receta?</h3>
+
+<p><strong>Medicamento:</strong> {{ receta.medicamento_principal }}</p>
+
+<p><strong>Dosis:</strong> {{ receta.dosis_recomendada }}</p>
+
+<p><strong>Frecuencia:</strong> {{ receta.frecuencia_consumo }}</p>
+
+<p><strong>Fecha:</strong> {{ receta.fecha_emision }}</p>
+
+<form method="POST">
+
+<button class="btn btn-danger">
+Sí, eliminar
+</button>
+
+<a href="{{ url_for('lista_recetas') }}"
+class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,44 +1,70 @@
 {% extends 'base/base.html' %}
+
 {% block content %}
 
 <h1>Lista de Recetas</h1>
 
-<a href="{%url 'agregar_recetas'%}" class="btn btn-success mb-3">Registrar receta</a>
+<a href="{{ url_for('crear_receta') }}" class="btn btn-success mb-3">
+    Registrar receta
+</a>
 
 <table class="table table-hover align-middle text-center">
     <thead class="table-primary">
-        <th>Medicamento Principal</th>
-        <th>Dosis Recomendada</th>
-        <th>Frecuencia Consumo</th> 
-        <th>Duración Tratamiento</th> 
-        <th>Indicaciones Especiales</th> 
-        <th>Vía Administración</th> 
-        <th>Fecha Emisión</th> 
-        <th>Requiere Control</th> 
-        <th>Acciones</th>
+        <tr>
+            <th>Medicamento Principal</th>
+            <th>Dosis Recomendada</th>
+            <th>Frecuencia</th>
+            <th>Duración</th>
+            <th>Indicaciones</th>
+            <th>Vía</th>
+            <th>Fecha</th>
+            <th>Control</th>
+            <th>Acciones</th>
+        </tr>
     </thead>
+
+    <tbody>
+
     {% for receta in recetas %}
+
     <tr>
-        <td> {{receta.medicamento_principal}} </td>
-        <td> {{receta.dosis_recomendada}} </td>
-        <td> {{receta.frecuencia_consumo}} </td>
-        <td> {{receta.duracion_tratamiento}} </td>
-        <td> {{receta.indicaciones_especiales}} </td>
-        <td> {{receta.via_administracion}} </td>
-        <td> {{receta.fecha_emision}} </td>
-                            
-        <td class="fs-5">
+
+        <td>{{ receta.medicamento_principal }}</td>
+        <td>{{ receta.dosis_recomendada }}</td>
+        <td>{{ receta.frecuencia_consumo }}</td>
+        <td>{{ receta.duracion_tratamiento }}</td>
+        <td>{{ receta.indicaciones_especiales }}</td>
+        <td>{{ receta.via_administracion }}</td>
+        <td>{{ receta.fecha_emision }}</td>
+
+        <td>
             {% if receta.requiere_control %}
-                <span class="badge bg-success ">Sí</span>
+                <span class="badge bg-success">Sí</span>
             {% else %}
                 <span class="badge bg-danger">No</span>
             {% endif %}
         </td>
+
         <td>
-            <a href="{%url 'editar_receta' receta.id %}" class="btn btn-warning btn-sn mb-2">Editar</a>
-            <a href="{%url 'eliminar_receta' receta.id %}" class="btn btn-danger btn-sn">Eliminar</a>
+
+            <a href="{{ url_for('editar_receta', id=receta.id) }}"
+               class="btn btn-warning btn-sm">
+                Editar
+            </a>
+
+            <a href="{{ url_for('eliminar_receta', id=receta.id) }}"
+               class="btn btn-danger btn-sm">
+                Eliminar
+            </a>
+
         </td>
+
     </tr>
-    {%endfor%}
+
+    {% endfor %}
+
+    </tbody>
+
 </table>
-{% endblock  %}
+
+{% endblock %}

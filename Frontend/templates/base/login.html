@@ -3,14 +3,11 @@
 {% block content %}
 <h2>Iniciar Sesión</h2>
 
-{% if form.errors %}
-    <div class="alert alert-danger">
-        Nombre de usuario o contraseña incorrectos.
-    </div>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
 {% endif %}
 
 <form method="POST">
-    {%csrf_token%}
 
     <div class="mb-3">
         <label for="username" class="form-label">Nombre de usuario</label>

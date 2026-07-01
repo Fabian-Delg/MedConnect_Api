@@ -17,10 +17,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor02">
       <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('lista_citas') }}">Citas</a></li>
-            </ul>
-        </div>
+        <ul class="navbar-nav me-auto">
+
+          {% if session.get('usuario') %}
+
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('lista_citas') }}">Citas</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('lista_recetas') }}">Recetas</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+
+          {% else %}
+
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('registro') }}">Registrarse</a></li>
+
+          {% endif %}
+
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
